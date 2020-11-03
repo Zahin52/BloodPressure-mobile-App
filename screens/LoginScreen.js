@@ -74,7 +74,7 @@ class LoginScreen extends Component {
      signInWithGoogleAsync = async ()=> {
         try {
           const result = await Google.logInAsync({
-            behavior:"web",
+            
             androidClientId: '19505452059-294pbr8k70nk2ldh1v8870afeafb6nms.apps.googleusercontent.com',
             
             scopes: ['profile', 'email'],
@@ -112,7 +112,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent:"center",
-        alignItems:"center"
+        alignItems:"center",
+        backgroundColor:"#bcece0"
         
     },
     headerTitle:{
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
       },
       
       header:{           
-        marginBottom:23, 
+         
         width:"100%",
         height:"10%",     
         backgroundColor:"#B7B5F2",          

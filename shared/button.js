@@ -13,8 +13,9 @@ class Custombutton extends Component {
     }
     render() {
         return (
-        <TouchableOpacity onPress={this.props.onPress} style={{ backgroundColor:"#24A0ED",height: 50, marginTop: 10 ,justifyContent:"center",alignItems:"center"}}>
-            <Text style={{fontSize:18,color:"white"}}>{this.props.title}</Text>
+        <TouchableOpacity onPress={this.props.onPress} style={{backgroundColor:"#24A0ED",height: 50, marginTop: 10 ,justifyContent:"center",alignItems:"center"}}>
+            {this.props.title.length>0?<Text style={{fontSize:18,color:"white"}}>{this.props.title}</Text>:this.props.children}
+            
         </TouchableOpacity>
         );
     }

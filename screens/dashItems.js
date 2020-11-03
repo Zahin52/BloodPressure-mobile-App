@@ -1,27 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState,useEffect,Component} from 'react';
-import { StyleSheet, Text, View,Alert,FlatList,ScrollView,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,Alert,FlatList,ScrollView,TouchableOpacity,Modal} from 'react-native';
 import Button from "../shared/button";
+import {MaterialIcons} from "@expo/vector-icons";
 import firebase from "firebase";
-// import {userId} from './LoginScreen';
+import Modalview from './modal';
+
 class dashItems extends Component {
   
   constructor(props) {
     super(props);
-    this._isMounted = false;
+    
     this.state = { 
+      Modaltoggle:false,
       list:[]
      };
+     
      this.user = firebase.auth().currentUser;
      this.showAlert=this.showAlert.bind(this);
+     this.getData=this.getData.bind(this);
   }
   componentDidMount(){
-    this._isMounted = true;
-    if(this._isMounted) this.getData();
+     this.getData();
   }
   componentWillUnmount() { 
-    this._isMounted = false;
-    this.getData();
+    
+    
    }
     
   getData=()=>{
@@ -39,27 +43,30 @@ class dashItems extends Component {
 }
   
   showAlert=()=> {  
-    Alert.alert(  
-        'Alert Title',  
-        "userId",  
-        [  
-            {  
-                text: 'Cancel',  
-                onPress: () => console.log('Cancel Pressed'+ this.user.uid),  
-                style: 'cancel',  
-            },  
-            {text: 'OK', onPress: () => {
+    this.setState({
+      Modaltoggle:true
+    })
+    // Alert.alert(  
+    //     'Alert Title',  
+    //     "userId",  
+    //     [  
+    //         {  
+    //             text: 'Cancel',  
+    //             onPress: () => console.log('Cancel Pressed'+ this.user.uid),  
+    //             style: 'cancel',  
+    //         },  
+    //         {text: 'OK', onPress: () => {
             
-            firebase.database()
-            .ref('/users/'+this.user.uid)
-            .push({
-              name:"blue",
-              key:Date.now()
-            })
+    //         firebase.database()
+    //         .ref('/users/'+this.user.uid)
+    //         .push({
+    //           name:"blue",
+    //           key:Date.now()
+    //         })
             
-          } },  
-        ]  
-    );  
+    //       } },  
+    //     ]  
+    // );  
 }  
   render() {
     
@@ -67,10 +74,11 @@ class dashItems extends Component {
       <View style={styles.container}>
          <StatusBar backgroundColor="#B7B5F2" animated={true} style="auto" />
          
+         
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Android Application</Text>
         </View>     
-       
+        
         <View  style={{flex:1,width:"100%"}}>
             <FlatList   
               numColumns={1}            
@@ -86,7 +94,14 @@ class dashItems extends Component {
               keyExtractor={item => item.key.toString()}                
             />                
         </View>
-        <Button title="Add Data" onPress={this.showAlert}/>
+        <Modalview toggler={this.state.Modaltoggle} toggle={()=> this.setState({Modaltoggle:false})}/>
+        <Button title="Add new" onPress={this.showAlert}>
+            <MaterialIcons 
+            name="add"
+            size={40} 
+            style={{color:"white",borderWidth:1,borderColor:"white",borderRadius:10,alignSelf:"center"}}        
+            />
+        </Button>
             
       </View>
       
@@ -98,81 +113,6 @@ export default dashItems;
 
 
 
-// export default function Dash() {
-  
-//   const [item,setItem]=useState();
-//   const  [list,setlist]=useState();
-//   var user = firebase.auth().currentUser;
- 
-
-
-//   const setItemlist=()=>{
-//     var starCountRef = firebase.database().ref('/users/' + user.uid);
-//     starCountRef.on('value', (snapshot)=> {
-//     setlist(snapshot.val()) ;
-//     console.log(list);
-
-//   });
-    
-//   }
-//   if (user) {
-//     // User is signed in.
-    
-//     setItemlist();
-    
-//   } else {
-//     // No user is signed in.
-//   }
-//     const showAlert=()=> {  
-//       Alert.alert(  
-//           'Alert Title',  
-//           "userId",  
-//           [  
-//               {  
-//                   text: 'Cancel',  
-//                   onPress: () => console.log('Cancel Pressed'+ user.uid),  
-//                   style: 'cancel',  
-//               },  
-//               {text: 'OK', onPress: () => {
-//               setItem({
-//                 name:"janu",
-//                 key:"two"
-//               });
-//               firebase.database()
-//               .ref('/users/'+user.uid)
-//               .push(item)
-            
-//             } },  
-//           ]  
-//       );  
-//   }  
-//   return (   
-//     <View style={styles.container}>
-//        <StatusBar backgroundColor="#B7B5F2" animated={true} style="auto" />
-       
-//       <View style={styles.header}>
-//         <Text style={styles.headerTitle}>Android Application</Text>
-//       </View>     
-     
-//       <View  style={{flex:1,width:"100%"}}>
-//           <FlatList   
-//             numColumns={1}            
-//             data={list}
-//             renderItem={({item}) =>  
-//               (
-//                 <View style={styles.flatlist}>
-//                   <Text style={{color:"white",fontSize:20}}>{item.name}</Text>
-//                 </View>
-//               )
-//             }                  
-//           />                
-//       </View>
-//       <Button title="Show Alert" onPress={showAlert}/>
-          
-//     </View>
-    
-//   );
-// }
 
 const styles = StyleSheet.create({
   container: {
