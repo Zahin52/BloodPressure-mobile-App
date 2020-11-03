@@ -46,34 +46,13 @@ class dashItems extends Component {
     this.setState({
       Modaltoggle:true
     })
-    // Alert.alert(  
-    //     'Alert Title',  
-    //     "userId",  
-    //     [  
-    //         {  
-    //             text: 'Cancel',  
-    //             onPress: () => console.log('Cancel Pressed'+ this.user.uid),  
-    //             style: 'cancel',  
-    //         },  
-    //         {text: 'OK', onPress: () => {
-            
-    //         firebase.database()
-    //         .ref('/users/'+this.user.uid)
-    //         .push({
-    //           name:"blue",
-    //           key:Date.now()
-    //         })
-            
-    //       } },  
-    //     ]  
-    // );  
+    
 }  
   render() {
     
     return (   
       <View style={styles.container}>
-         <StatusBar backgroundColor="#B7B5F2" animated={true} style="auto" />
-         
+         <StatusBar backgroundColor="#B7B5F2" animated={true} style="auto" />         
          
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Android Application</Text>
@@ -94,7 +73,10 @@ class dashItems extends Component {
               keyExtractor={item => item.key.toString()}                
             />                
         </View>
-        <Modalview toggler={this.state.Modaltoggle} toggle={()=> this.setState({Modaltoggle:false})}/>
+        <Modalview 
+            toggler={this.state.Modaltoggle} 
+            toggle={()=> this.setState({Modaltoggle:false})}
+        />
         <Button title="Add new" onPress={this.showAlert}>
             <MaterialIcons 
             name="add"

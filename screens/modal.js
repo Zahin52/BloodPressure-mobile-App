@@ -25,6 +25,7 @@ class Modalview extends Component {
         firebase.database()
             .ref('/users/'+this.user.uid)
             .push(data);
+        
     }
     render() {
         return (
@@ -37,7 +38,7 @@ class Modalview extends Component {
                     size={40}                 
                     style={{margin:10,color:"white",borderWidth:1,borderColor:"white",borderRadius:10,alignSelf:"stretch",textAlign:"center"}}        
                     />                      
-                <Formview uploadData={this.uploadData}/>
+                <Formview onPress={this.props.toggle} uploadData={this.uploadData}/>
                 </View>
             </TouchableWithoutFeedback>        
             
