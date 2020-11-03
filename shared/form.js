@@ -18,6 +18,7 @@ const Formview = ({uploadData}) => (
         onSubmit={(values,actions)=>{
             actions.resetForm();            
             uploadData(values);
+            console.log(values);
         }}
         >
             {(props)=>(
