@@ -16,8 +16,7 @@ const Formview = ({uploadData}) => (
         <Formik
         initialValues={{name:''}}
         onSubmit={(values,actions)=>{
-            actions.resetForm();
-            
+            actions.resetForm();            
             uploadData(values);
         }}
         >
