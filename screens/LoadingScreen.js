@@ -22,10 +22,10 @@ class LoadingScreen extends Component {
         
         firebase.auth().onAuthStateChanged((user)=>{            
             if(user){ 
-                this.props.navigation.navigate("LoadingScreen");
-                setTimeout(()=>{
-                    this.props.navigation.navigate("DashboardScreen");
-                },3000)
+                this.props.navigation.navigate("DashboardScreen");
+                // setTimeout(()=>{
+                    
+                // },3000)
             }
             else{ 
                 this.props.navigation.navigate("LoadingScreen");
@@ -39,7 +39,8 @@ class LoadingScreen extends Component {
     render() {
         return (
             <Spinner>
-                <Text>Loading. Please Wait .....</Text> 
+                <Text>Signing out</Text> 
+                <Text>Wait for a while.....</Text> 
             </Spinner>
         );
     }

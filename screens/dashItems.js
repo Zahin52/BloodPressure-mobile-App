@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React,{useState,useEffect,Component} from 'react';
 import { StyleSheet, Text, View,Alert,FlatList,ScrollView,TouchableOpacity,Modal} from 'react-native';
 import Button from "../shared/button";
+import Header from "../shared/header";
 import {MaterialIcons} from "@expo/vector-icons";
 import firebase from "firebase";
 import Modalview from './modal';
@@ -52,13 +53,10 @@ class dashItems extends Component {
     
     return (   
       <View style={styles.container}>
-         <StatusBar backgroundColor="#B7B5F2" animated={true} style="auto" />         
-         
-        <View style={styles.header}>
-          <Text style={styles.headerTitle}>Android Application</Text>
-        </View>     
+       
+        <Header/>       
         
-        <View  style={{flex:1,width:"100%"}}>
+        <View  style={{flex:1,width:"100%",}}>
             <FlatList   
               numColumns={1}            
               data={this.state.list}
@@ -101,22 +99,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',   
     width:"100%"
-  },
-  headerTitle:{
-    fontSize:20,
-    color:"black",
-  },
-  
-  header:{ 
-    marginTop:23,  
-    marginBottom:23, 
-    width:"100%",
-    height:"10%",     
-    backgroundColor:"#B7B5F2",          
-    justifyContent:"center",
-    alignItems:"center"
-    
-  },
+  }, 
   flatlist:{
     backgroundColor:"#8994e5",
     justifyContent:"center",

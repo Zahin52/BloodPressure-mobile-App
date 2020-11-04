@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import * as Google from 'expo-google-app-auth';
 import firebase from "firebase";
-import Spinner from "../shared/spinner"
+import Spinner from "../shared/spinner";
+import Header from "../shared/header";
 
 import { 
     View,
@@ -127,13 +128,9 @@ class LoginScreen extends Component {
     render() {
         return (
             <View style={{flex:1}}>
-                <StatusBar backgroundColor="#B7B5F2" animated={true} style="auto" />
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Android Application</Text>
-                </View>  
+                <Header/>   
                 {console.log(this.state.isLoading)}
-                {this.state.isLoading ? <Spinner><Text>Please Wait .....</Text></Spinner>:this.Mainitem()}
-                
+                {this.state.isLoading ? <Spinner><Text>Signing in.....</Text></Spinner>:this.Mainitem()}                
             </View>
         );
     }

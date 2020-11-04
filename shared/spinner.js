@@ -8,10 +8,9 @@ import {
 
 const Spinner = (props) => (
     <View style={styles.container}>
-               <ActivityIndicator size="large" color="#00ff00" /> 
+               <ActivityIndicator size={80} color="#00ff00" /> 
                <View style={styles.textalign}>
-                   {props.children}
-                  <Text>Please Wait .....</Text> 
+                   {props.children}                  
                </View> 
                                        
     </View>
