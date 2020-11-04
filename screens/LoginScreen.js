@@ -130,7 +130,7 @@ class LoginScreen extends Component {
             <View style={{flex:1}}>
                 <Header/>   
                 {console.log(this.state.isLoading)}
-                {this.state.isLoading ? <Spinner><Text>Signing in.....</Text></Spinner>:this.Mainitem()}                
+                {this.state.isLoading ? <Spinner><Text>Signing in . . . . .</Text></Spinner>:this.Mainitem()}                
             </View>
         );
     }

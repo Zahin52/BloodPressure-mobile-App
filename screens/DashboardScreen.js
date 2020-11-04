@@ -15,7 +15,7 @@ class DashboardScreen extends Component {
     return (
       <View style={styles.container}>
         <Dash />
-        <Button title="Sign Out" onPress={()=> firebase.auth().signOut()}  /> 
+        <Button stylebtn="margin:0" title="Sign Out" onPress={()=> firebase.auth().signOut()}  /> 
       </View>
     );
   }

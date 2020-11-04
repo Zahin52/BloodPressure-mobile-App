@@ -13,7 +13,7 @@ class Custombutton extends Component {
     }
     render() {
         return (
-        <TouchableOpacity onPress={this.props.onPress} style={{borderRadius:10,backgroundColor:"#24A0ED",height: 50, margin: 10 ,justifyContent:"center",alignItems:"center"}}>
+        <TouchableOpacity onPress={this.props.onPress} style={styles.touchableBtn}>
             {this.props.title.length>0?<Text style={{fontSize:18,color:"white"}}>{this.props.title}</Text>:this.props.children}
             
         </TouchableOpacity>
@@ -27,5 +27,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    touchableBtn:{
+        borderRadius:10,
+        backgroundColor:"#24A0ED",
+        height: 50, 
+        margin:10,
+        justifyContent:"center",
+        alignItems:"center"
     }
 });
