@@ -21,7 +21,9 @@ class Modalview extends Component {
         this.uploadData=this.uploadData.bind(this);
     }
     uploadData=(data)=>{
-        data.key=Date.now().toString();
+        var date=new Date();
+        data.key=Date.now();
+        data.dateString=date.toDateString();
         firebase.database()
             .ref('/users/'+this.user.uid)
             .push(data);

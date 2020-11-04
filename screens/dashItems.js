@@ -20,6 +20,7 @@ class dashItems extends Component {
      this.user = firebase.auth().currentUser;
      this.showAlert=this.showAlert.bind(this);
      this.getData=this.getData.bind(this);
+     this.FlatListItems=this.FlatListItems.bind(this);
   }
   componentDidMount(){
      this.getData();
@@ -34,14 +35,49 @@ class dashItems extends Component {
     var starCountRef = firebase.database().ref('/users/' + this.user.uid);
     starCountRef.on('value', (snapshot)=> {
       var arr=[];
-      Object.values(snapshot.val()).forEach(val => {
-        console.log(val);
-        arr.push(val)
-      });
+      console.log("snapshot",snapshot);
+      
+       if(snapshot.val()==null){
+         console.log("im null");
+       }else{
+        Object.values(snapshot.val()).forEach(val => {
+          console.log(val);
+          arr.push(val)
+        });
+       }
+        
+        //this.setState({list:arr}) ;
+      
+        
+      
         this.setState({list:arr}) ;
-        console.log(this.state.list);
+        console.log("into function",this.state.list);
        });
 }
+
+FlatListItems = () =>
+  (
+    <FlatList   
+              numColumns={1}            
+              data={this.state.list}
+              
+              renderItem={({item}) =>  
+                (
+                  <View style={styles.flatlist}>
+                    <View style={{padding:5,borderColor:"yellow",borderBottomWidth:1,justifyContent:"center",alignItems:"center"}}>
+                      <Text style={{color:"white",fontSize:20,}}>{item.dateString}</Text>
+                    </View>
+                    <View style={{flex:1,justifyContent:"center"}}>
+                      <Text style={{color:"white",fontSize:20,textAlign:"center"}}>{item.name}</Text>
+                    </View>
+                    
+                  </View>
+                )
+              }
+              keyExtractor={item => item.key.toString()}                
+            /> 
+  );
+
   
   showAlert=()=> {  
     this.setState({
@@ -57,19 +93,8 @@ class dashItems extends Component {
         <Header/>       
         
         <View  style={{flex:1,width:"100%",}}>
-            <FlatList   
-              numColumns={1}            
-              data={this.state.list}
-              
-              renderItem={({item}) =>  
-                (
-                  <View style={styles.flatlist}>
-                    <Text style={{color:"white",fontSize:20}}>{item.name}</Text>
-                  </View>
-                )
-              }
-              keyExtractor={item => item.key.toString()}                
-            />                
+          {console.log("length:",this.state.list.length)}
+              {this.state.list.length>0 ? this.FlatListItems() : <Text>No Item to show</Text>}
         </View>
         <Modalview 
             toggler={this.state.Modaltoggle} 
@@ -102,11 +127,9 @@ const styles = StyleSheet.create({
   }, 
   flatlist:{
     backgroundColor:"#8994e5",
-    justifyContent:"center",
-    textAlign:"center",
-    alignItems:'center',
     margin:10,
-    padding:10,    
+    padding:0,  
+    borderWidth:2,  
     fontSize:20  ,
     width:"95%",
     height:120,

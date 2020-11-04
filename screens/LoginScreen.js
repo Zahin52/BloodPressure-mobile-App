@@ -142,21 +142,8 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent:"center",
         padding:15,
-        backgroundColor:"#bcece0"
+        backgroundColor:"#fff"
         
     },
-    headerTitle:{
-        fontSize:20,
-        color:"black",
-      },
-      
-      header:{           
-         
-        width:"100%",
-        height:"10%",     
-        backgroundColor:"#B7B5F2",          
-        justifyContent:"center",
-        alignItems:"center"
-        
-      }
+    
 });
