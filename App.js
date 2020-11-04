@@ -2,11 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import React,{useState} from 'react';
 import { StyleSheet, Text, View ,Button,Alert,FlatList,ScrollView,TouchableOpacity} from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import LoadingScreen from "./screens/LodingScreen";
+import LoadingScreen from "./screens/LoadingScreen";
 import LoginScreen from "./screens/LoginScreen";
 import DashboardScreen from "./screens/DashboardScreen";
 import firebase from 'firebase';
 import { firebaseConfig } from './config';
+
 var app=firebase.initializeApp(firebaseConfig);
 db = firebase.firestore(app);
 
@@ -14,15 +15,14 @@ db = firebase.firestore(app);
 export default function App() {
  
   return (   
-    <AppSwitchNavigator />
-    
+    <AppSwitchNavigator />    
   );
 }
 
 const AppSwitchNavigator=createAppContainer(
   createSwitchNavigator(
     {
-      LoadingScreen:LoadingScreen, 
+      LoadingScreen:LoadingScreen,      
       LoginScreen:LoginScreen,
       DashboardScreen:DashboardScreen,
     }
