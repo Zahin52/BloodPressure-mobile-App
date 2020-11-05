@@ -13,10 +13,12 @@ import Dash from './dashItems';
 class DashboardScreen extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Dash />
-        <Button stylebtn="margin:0" title="Sign Out" onPress={()=> firebase.auth().signOut()}  /> 
-      </View>
+      
+          <View style={styles.container}>
+            <Dash />
+            <Button stylebtn="margin:0" title="Sign Out" onPress={()=> firebase.auth().signOut()}  /> 
+          </View>
+      
     );
   }
 }

@@ -3,13 +3,15 @@ import * as Google from 'expo-google-app-auth';
 import firebase from "firebase";
 import Spinner from "../shared/spinner";
 import Header from "../shared/header";
+import Emaillogin from "./emailLogin";
 
 import { 
     View,
     Text,
     StyleSheet,
     ActivityIndicator,
-    
+    TouchableWithoutFeedback,
+    Keyboard,
     StatusBar
 } from "react-native";
 import Button from "../shared/button";
@@ -31,13 +33,12 @@ class LoginScreen extends Component {
       this.Mainitem=this.Mainitem.bind(this);
     }    
     Mainitem = () => 
-    ( 
+    (         <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
                 <View style={styles.container}>
-                   
-                    <Text style={{fontSize:25,textAlign:"center"}}>LoginScreen</Text>
-                    <Button title="Login with google" onPress={() => this.signInWithGoogleAsync() }/>
-                    
+                    <Emaillogin  onPress={() => this.signInWithGoogleAsync() }/>                    
+                    {/* <Button title="Login with google" onPress={() => this.signInWithGoogleAsync() }/>                */}
                 </View>
+              </TouchableWithoutFeedback>
     );
 
     
