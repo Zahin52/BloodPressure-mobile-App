@@ -39,7 +39,6 @@ class LoadingScreen extends Component {
     render() {
         return (
             <Spinner>
-                <Text>Signing out</Text> 
                 <Text>Wait for a while.....</Text> 
             </Spinner>
         );

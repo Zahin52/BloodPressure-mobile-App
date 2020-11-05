@@ -24,6 +24,7 @@ class Modalview extends Component {
         var date=new Date();
         data.key=Date.now();
         data.dateString=date.toDateString();
+        data.uid=this.user.uid;                             
         firebase.database()
             .ref('/users/'+this.user.uid)
             .push(data);
