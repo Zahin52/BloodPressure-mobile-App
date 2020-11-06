@@ -3,7 +3,7 @@ import * as Google from 'expo-google-app-auth';
 import firebase from "firebase";
 import Spinner from "../shared/spinner";
 import Header from "../shared/header";
-import Emaillogin from "./emailLogin";
+import Emaillogin from "./LoginItems";
 
 import { 
     View,
@@ -25,7 +25,8 @@ class LoginScreen extends Component {
     constructor(props){
       super(props)
       this.state={
-        isLoading:false
+        isLoading:false,
+        
       }
       this.onSignIn=this.onSignIn.bind(this);
       this.isUserEqual=this.isUserEqual.bind(this);
@@ -35,11 +36,45 @@ class LoginScreen extends Component {
     Mainitem = () => 
     (         <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
                 <View style={styles.container}>
-                    <Emaillogin  onPress={() => this.signInWithGoogleAsync() }/>                    
+                    <Emaillogin Loginuser={this.Loginuser} Signinuser={this.Signinuser} GoogleLogin={() => this.signInWithGoogleAsync() }/>                    
                     {/* <Button title="Login with google" onPress={() => this.signInWithGoogleAsync() }/>                */}
                 </View>
               </TouchableWithoutFeedback>
     );
+
+    Loginuser(email,password){
+      console.log("Email:"+email+" pass:"+password);
+      
+      try {
+          firebase.auth().signInWithEmailAndPassword(email,password).then(user=>{
+              console.log("logged in"+user);
+          }               
+          ).catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // The email of the user's account used.
+              var email = error.email;
+              // The firebase.auth.AuthCredential type that was used.
+              var credential = error.credential;
+             alert(errorMessage);
+            });
+      } catch (error) {
+          console.log(error.toString());
+      }
+  }
+  Signinuser(email,password){
+     console.log("Email:"+email+" pass:"+password);
+     try {
+         if(this.state.Password.length<6){
+             alert("Please enter at least 6 character");
+             return;
+         }
+         firebase.auth().createUserWithEmailAndPassword(email,password);
+     } catch (error) {
+         console.log(error.toString());
+     }
+  }
 
     
     isUserEqual=(googleUser, firebaseUser)=> {

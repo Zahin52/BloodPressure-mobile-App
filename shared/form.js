@@ -14,7 +14,7 @@ import { Formik } from 'formik';
 const Formview = ({uploadData,onPress}) => (
     <View style={styles.container}>
         <Formik
-        initialValues={{name:''}}
+        initialValues={{SYS:'',DIA:''}}
         onSubmit={(values,actions)=>{
             actions.resetForm();            
             uploadData(values);
@@ -26,9 +26,16 @@ const Formview = ({uploadData,onPress}) => (
                 
                     <View>
                         <TextInput style={styles.input}
-                        placeholder="give your meassures BP"
-                        onChangeText={props.handleChange('name')}
-                        value={props.values.name}
+                        placeholder="give your Sys BP"
+                        onChangeText={props.handleChange('SYS')}
+                        value={props.values.SYS}
+                        keyboardType="numeric"
+                        keyboardAppearance="dark"
+                        />
+                        <TextInput style={styles.input}
+                        placeholder="give your DIA "
+                        onChangeText={props.handleChange('DIA')}
+                        value={props.values.DIA}
                         keyboardType="numeric"
                         keyboardAppearance="dark"
                         />

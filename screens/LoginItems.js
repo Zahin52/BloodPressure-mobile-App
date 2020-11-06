@@ -6,11 +6,20 @@ import {
     } from "react-native";
 import {Container,Content,Header,Button,Form,Input,Item,Label,Icon} from "native-base";
 import { AntDesign,Zocial ,Entypo} from '@expo/vector-icons';
+import firebase from "firebase";
 class Emaillogin extends Component {
+    constructor(props){
+        super(props);
+         this.state={
+            Email:"",
+            Password:""
+         }
+    }
+    
     render() {
         return (
             <Container style={{...styles.container}}>
-                <Form>
+                <Form >
                     <Item style={{margin:10,padding:10,borderColor:"green"}} floatingLabel>
                         <Label>
                             <View style={{paddingRight:10}}>
@@ -24,6 +33,7 @@ class Emaillogin extends Component {
                         <Input 
                         autoCapitalize="none"
                         autoCorrect={false}
+                        onChangeText={(Email)=>this.setState({Email})}
                         >
                         </Input>
                     </Item>
@@ -37,9 +47,10 @@ class Emaillogin extends Component {
                             </Text>
                         </Label>
                         <Input 
-                        secureTextEntry={true}
+                        // secureTextEntry={true}
                         autoCapitalize="none"
                         autoCorrect={false}
+                        onChangeText={(Password)=>this.setState({Password})}
                         >
                         </Input>
                     </Item>
@@ -47,7 +58,7 @@ class Emaillogin extends Component {
                     full
                     rounded
                     success
-                    
+                    onPress={()=>this.props.Loginuser(this.state.Email,this.state.Password)}
                     >
                         <Text style={{color:"white",fontWeight:"bold"}}>
                             Login
@@ -57,7 +68,7 @@ class Emaillogin extends Component {
                     full
                     rounded
                     warning
-                    
+                    onPress={()=>this.props.Signinuser(this.state.Email,this.state.Password)}
                     >
                         <Text style={{color:"white",fontWeight:"bold"}}>
                             SignUp
@@ -67,9 +78,8 @@ class Emaillogin extends Component {
                     <Button style={{marginTop:10}}
                     full
                     rounded
-                    info
-                    iconLeft
-                    onPress={this.props.onPress}
+                    info                   
+                    onPress={this.props.GoogleLogin}
                     >
                         <AntDesign name="google" size={25} color="white" />
                         <Text style={{color:"white",fontWeight:"bold",marginLeft:12}}>

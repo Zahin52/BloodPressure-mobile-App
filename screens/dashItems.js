@@ -58,7 +58,7 @@ class dashItems extends Component {
        }        
         //this.setState({list:arr}) ;    
         
-      
+        arr=arr.reverse();
         this.setState({list:arr}) ;
         //console.log("into function",this.state.list);
        });
@@ -108,8 +108,9 @@ FlatListItems = () =>
                       <View style={{padding:5,borderColor:"yellow",borderBottomWidth:1,justifyContent:"center",alignItems:"center"}}>
                         <Text style={{color:"white",fontSize:20,}}>{item.dateString}</Text>
                       </View>
-                      <View style={{flex:1,justifyContent:"center"}}>
-                        <Text style={{color:"white",fontSize:20,textAlign:"center"}}>{item.name}</Text>
+                      <View style={{flex:1,justifyContent:"space-around",alignItems:"center"}}>
+                        <Text style={{color:"white",fontSize:16,textAlign:"center"}}>SYS: {item.SYS} (mmhg)</Text>
+                        <Text style={{color:"white",fontSize:16,textAlign:"center"}}>DIA: {item.DIA} (mmhg)</Text>
                       </View>
                       
                     </View>
