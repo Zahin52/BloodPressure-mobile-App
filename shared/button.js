@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     touchableBtn:{
         borderRadius:10,
-        backgroundColor:"#24A0ED",
+        backgroundColor:"#3f4c6b",
         height: 50, 
         margin:10,
         justifyContent:"center",

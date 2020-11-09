@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { LinearGradient } from 'expo-linear-gradient';
 import { 
     View,
     Text,
@@ -33,18 +34,23 @@ class Modalview extends Component {
     render() {
         return (
         <Modal visible={this.props.toggler} animationType="slide">  
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
-                <View style={{flex: 1, backgroundColor: '#24A0ED',padding:0}}>
-                <MaterialIcons 
-                    onPress={this.props.toggle}
-                    name="close"
-                    size={40}                 
-                    style={{margin:10,color:"white",borderWidth:1,borderColor:"white",borderRadius:10,alignSelf:"stretch",textAlign:"center"}}        
-                    />                      
-                <Formview onPress={this.props.toggle} uploadData={this.uploadData}/>
-                </View>
-            </TouchableWithoutFeedback>        
-            
+            <LinearGradient
+            colors={["#606c88", "#3f4c6b"]}
+            start={[0.1, 0.4]}
+            style={styles.linearGradient}
+            >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
+                    <View style={{flex:1,}}>
+                    <MaterialIcons 
+                        onPress={this.props.toggle}
+                        name="close"
+                        size={40}                 
+                        style={{margin:10,color:"#d3d3d3",borderWidth:1,borderColor:"#d3d3d3",borderRadius:10,alignSelf:"flex-start",textAlign:"center"}}        
+                        />                      
+                    <Formview onPress={this.props.toggle} uploadData={this.uploadData}/>
+                    </View>
+                </TouchableWithoutFeedback>        
+            </LinearGradient>
         </Modal>
         );
     }
@@ -56,5 +62,12 @@ const styles = StyleSheet.create({
         flex: 1,
         // alignItems: 'center',
         // justifyContent: 'center'
-    }
+    },
+    linearGradient: {
+        
+        width: '100%',
+        height: '100%',        
+        justifyContent: 'center',
+        
+      },
 });

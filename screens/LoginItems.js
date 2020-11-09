@@ -18,7 +18,7 @@ class Emaillogin extends Component {
     
     render() {
         return (
-            <Container style={{...styles.container}}>
+            <Container style={styles.container}>
                 <Form >
                     <Item style={{margin:10,padding:10,borderColor:"green"}} floatingLabel>
                         <Label>
@@ -98,7 +98,8 @@ export default Emaillogin;
 const styles = StyleSheet.create({
     container: {      
         flex:1,
-        padding:10,
-        justifyContent: 'center'
+        padding:15,       
+        justifyContent: 'center',
+        width: "100%",
     }
 });

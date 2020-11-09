@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "testproject",
-    "slug": "testproject",
+    "name": "Blood Pressure",
+    "slug": "Blood Pressure",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/bloodpressure.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/bloodpressure.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

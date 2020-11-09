@@ -12,7 +12,7 @@ import {
     ActivityIndicator,
     TouchableWithoutFeedback,
     Keyboard,
-    StatusBar
+    StatusBar,ImageBackground
 } from "react-native";
 import Button from "../shared/button";
 
@@ -164,9 +164,12 @@ class LoginScreen extends Component {
     render() {
         return (
             <View style={{flex:1}}>
-                <Header/>   
-                {console.log(this.state.isLoading)}
-                {this.state.isLoading ? <Spinner><Text>Signing in . . . . .</Text></Spinner>:this.Mainitem()}                
+                <Header/>
+                <ImageBackground source={require('../assets/bloodpressure.png')} style={styles.imgBackground}>
+                    {console.log(this.state.isLoading)}
+                    {this.state.isLoading ? <Spinner><Text>Signing in . . . . .</Text></Spinner>:this.Mainitem()}  
+                </ImageBackground>   
+                                
             </View>
         );
     }
@@ -176,10 +179,15 @@ export default LoginScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent:"center",
-        padding:15,
-        backgroundColor:"#fff"
+        justifyContent:"center",      
         
+        opacity:.8
+        
+    },
+    imgBackground: {
+      flex: 1,
+      width: "100%",
+     
     },
     
 });

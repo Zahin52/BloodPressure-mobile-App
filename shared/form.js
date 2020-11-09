@@ -26,14 +26,18 @@ const Formview = ({uploadData,onPress}) => (
                 
                     <View>
                         <TextInput style={styles.input}
-                        placeholder="give your Sys BP"
+                        placeholder="Give your Sys BP"
+                        placeholderTextColor="#d3d3d3" 
+                        selectionColor={'white'}
                         onChangeText={props.handleChange('SYS')}
                         value={props.values.SYS}
                         keyboardType="numeric"
                         keyboardAppearance="dark"
                         />
                         <TextInput style={styles.input}
-                        placeholder="give your DIA "
+                        placeholder="Give your DIA BP"
+                        placeholderTextColor="#d3d3d3" 
+                        selectionColor={'white'}
                         onChangeText={props.handleChange('DIA')}
                         value={props.values.DIA}
                         keyboardType="numeric"
@@ -61,6 +65,8 @@ const styles = StyleSheet.create({
         borderColor:"white",
         borderRadius:6,
         padding:10,
-        margin:10
+        margin:10,
+        color:"#fff",
+        
     }
 });

@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     width:"100%"
   }, 
   flatlist:{
-    backgroundColor:"#8994e5",
+    backgroundColor:"#3f4c6b",
     margin:10,
     padding:0,  
     borderWidth:2,  
