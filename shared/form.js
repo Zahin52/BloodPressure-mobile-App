@@ -9,12 +9,28 @@ import {
    
 } from "react-native";
 import { Formik } from 'formik';
+import * as yup from "yup";
+
+const validation=yup.object({
+    SYS:yup.string()
+        .required("required")
+        .matches(/^\d+$/)
+        .test("is num","Only number",(val)=>{
+            return  parseInt(val)>0 && parseInt(val)<200;
+        }),
+    DIA:yup.string()
+        .required("required")
+        .test("is num","Only number",(val)=>{
+            return parseInt(val)>0 && parseInt(val)<200;
+        })
+})
 
 
 const Formview = ({uploadData,onPress}) => (
     <View style={styles.container}>
         <Formik
         initialValues={{SYS:'',DIA:''}}
+        validationSchema={validation}
         onSubmit={(values,actions)=>{
             actions.resetForm();            
             uploadData(values);

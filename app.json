@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Blood Pressure",
-    "slug": "Blood Pressure",
+    "name": "BloodPressure",
+    "slug": "BloodPressure",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/bloodpressure.png",
