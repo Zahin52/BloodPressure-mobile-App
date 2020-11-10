@@ -66,7 +66,7 @@ class LoginScreen extends Component {
   Signinuser(email,password){
      console.log("Email:"+email+" pass:"+password);
      try {
-         if(this.state.Password.length<6){
+         if(password.length<6){
              alert("Please enter at least 6 character");
              return;
          }

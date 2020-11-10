@@ -8,7 +8,7 @@ import {
 
 const Spinner = (props) => (
     <View style={styles.container}>
-               <ActivityIndicator size={80} color="#00ff00" /> 
+               <ActivityIndicator size={80} color="#3f4c6b" /> 
                <View style={styles.textalign}>
                    {props.children}                  
                </View> 

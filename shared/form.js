@@ -14,15 +14,16 @@ import * as yup from "yup";
 const validation=yup.object({
     SYS:yup.string()
         .required("required")
-        .matches(/^\d+$/)
-        .test("is num","Only number",(val)=>{
-            return  parseInt(val)>0 && parseInt(val)<200;
+        .matches(/^\d+$/,"Only Number allowed")
+        .test("is num","Number must be >30 and <250",(val)=>{
+            return  parseInt(val)>30 && parseInt(val)<250;
         }),
     DIA:yup.string()
-        .required("required")
-        .test("is num","Only number",(val)=>{
-            return parseInt(val)>0 && parseInt(val)<200;
-        })
+        .required("Required")
+        .matches(/^\d+$/,"Only Number allowed")
+        .test("is num","Number must be >30 and < 250",(val)=>{
+            return  parseInt(val)>30 && parseInt(val)<250;
+        }),
 })
 
 
@@ -49,7 +50,9 @@ const Formview = ({uploadData,onPress}) => (
                         value={props.values.SYS}
                         keyboardType="numeric"
                         keyboardAppearance="dark"
+                        onBlur={props.handleBlur("SYS")}
                         />
+                        <Text style={styles.errorText}>{props.touched.SYS && props.errors.SYS}</Text>
                         <TextInput style={styles.input}
                         placeholder="Give your DIA BP"
                         placeholderTextColor="#d3d3d3" 
@@ -58,7 +61,9 @@ const Formview = ({uploadData,onPress}) => (
                         value={props.values.DIA}
                         keyboardType="numeric"
                         keyboardAppearance="dark"
+                        onBlur={props.handleBlur("DIA")}
                         />
+                        <Text style={styles.errorText}>{props.touched.DIA && props.errors.DIA}</Text>
                         <View style={{padding:10}}>
                         <Button  title="submit" onPress={props.handleSubmit}/>     
                         </View>                       
@@ -82,7 +87,15 @@ const styles = StyleSheet.create({
         borderRadius:6,
         padding:10,
         margin:10,
-        color:"#fff",
-        
+        color:"#fff",        
+    },
+    errorText:{       
+        paddingLeft:10,  
+        paddingRight:10,   
+        paddingTop:0,
+        paddingBottom:0 ,
+        margin:0 ,
+        color:"red"      
+             
     }
 });

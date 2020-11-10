@@ -1,17 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import React,{useState,useEffect,Component} from 'react';
-import {Animated, StyleSheet, Text, View,Alert,FlatList,ScrollView,TouchableOpacity,Modal} from 'react-native';
+// import { StatusBar } from 'expo-status-bar';
+import React,{Component} from 'react';
+import {Animated, StyleSheet,
+   Text, View,
+   FlatList,
+   } from 'react-native';
 import Button from "../shared/button";
 import Header from "../shared/header";
 import {MaterialIcons} from "@expo/vector-icons";
 import firebase from "firebase";
 import Modalview from './modal';
 import { RectButton } from 'react-native-gesture-handler';
-// import Swipeable from "react-native-gesture-handler/Swipeable";
-// import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-// import {GestureHandler} from "expo";
-// const {Swipeable}=GestureHandler;
+
+let prevOpenedRow;
 
 class dashItems extends Component {
   
@@ -19,16 +20,21 @@ class dashItems extends Component {
     super(props);
     
     this.state = { 
+      checkit:"Checking...",
       Modaltoggle:false,
       list:[]
      };
+     this.refsArray = []; 
      
      this.user = firebase.auth().currentUser;
      this.showAlert=this.showAlert.bind(this);
      this.getData=this.getData.bind(this);
      this.FlatListItems=this.FlatListItems.bind(this);
      this.delete=this.delete.bind(this);
+    //  this.close=this.close.bind(this);
+    //  this.updateRef=this.updateRef.bind(this);
   }
+  
   componentDidMount(){
      this.getData();
   }
@@ -72,7 +78,8 @@ class dashItems extends Component {
   renderRightActions = (progress, dragX) => {
     const trans = dragX.interpolate({
       inputRange: [-100, 0],
-      outputRange: [1, 0],
+      outputRange: [7, 5],
+      // extrapolate: 'clamp'
     });
     return (
       <RectButton style={styles.RightAction} onPress={this.close}>
@@ -88,6 +95,56 @@ class dashItems extends Component {
       </RectButton>
     );
   };  
+  renderLeftActions = (progress, dragX,index) => {
+    const trans = dragX.interpolate({
+      inputRange: [0, 100],
+      outputRange: [0, 1],
+      extrapolate:"clamp"
+      
+    });
+    return (
+      <RectButton style={styles.LeftAction} onPress={()=>this.closeit(index)}>
+       
+        <Animated.Text
+          style={[
+            styles.actionText,
+            {
+              transform: [{ translateX: trans }],
+            },
+          ]}>
+          
+          {this.state.checkit}
+        </Animated.Text>
+      </RectButton>
+    );
+  };  
+
+  checkingBp(sys,dia,index){
+    
+    this.close(index);
+    setTimeout(() => {
+    if(sys<120 && dia<80) {this.setState({checkit:"NORMAL"}); console.log("NORMAL");}
+    else if(sys>=120 && sys<=129 && dia<80) {this.setState({checkit:"ELEVATED"}); console.log("ELEVATED");} 
+    else if((sys>=130 && sys<=139) || (dia>=80 && dia<=89)) {this.setState({checkit:"High BP (stage 1)"}); console.log("High BP stage1");}
+    else if((sys>=140 && sys<=180 ) || (dia>=90 && dia<=120)){this.setState({checkit:"High BP (stage 2)"}); console.log("High BP stage2");} 
+    if((sys>180 || dia>120)) {this.setState({checkit:"Hypertensive crisis.Immediately go to doctor!"}); console.log("Hypertensive crisis,Immediately go to doctor!");}
+    }, 2000);
+  }
+  
+  close = (index) => {
+    this.setState({checkit:"Checking..."});
+    if (prevOpenedRow && prevOpenedRow !== this.refsArray[index]) {
+      
+      prevOpenedRow.close();
+      this.setState({checkit:"Checking..."});
+      }
+      prevOpenedRow = this.refsArray[index];
+    
+  };
+  closeit(index){
+    this.setState({checkit:"Checking..."});
+    this.refsArray[index].close();
+  }
   
 
 FlatListItems = () =>
@@ -97,11 +154,18 @@ FlatListItems = () =>
               numColumns={1}            
               data={this.state.list}
               
-              renderItem={({item}) =>  
+              renderItem={({item,index}) =>  
                 (
                   
                   <Swipeable renderRightActions={this.renderRightActions}
+                  ref={ref => {
+              
+                    this.refsArray[index] = ref; 
+                   }}
+                  
                   onSwipeableRightOpen={()=>this.delete(item.itemno,item.uid)}
+                  renderLeftActions={(progress, dragX)=>this.renderLeftActions(progress,dragX,index)}
+                  onSwipeableLeftOpen={()=>this.checkingBp(item.SYS,item.DIA,index)}
                   >
                   
                     <View style={styles.flatlist}>
@@ -116,7 +180,7 @@ FlatListItems = () =>
                     </View>
                   
                   </Swipeable>
-                  // </GestureRecognizer>
+                 
                 )
               }
               keyExtractor={item => item.key.toString()}                
@@ -190,6 +254,16 @@ const styles = StyleSheet.create({
   RightAction:{
     backgroundColor:"red",
     justifyContent:"center",
+    // alignItems:"center",
+    flex:1,
+    margin:10,
+    padding:0,  
+    borderWidth:2,      
+    borderRadius:15
+  },
+  LeftAction:{
+    backgroundColor:"green",
+    justifyContent:"center",
     alignItems:"center",
     flex:1,
     margin:10,
@@ -199,8 +273,9 @@ const styles = StyleSheet.create({
   },
   actionText:{
     color:"white",
-    fontSize:35,    
-    padding:20
+    fontSize:22,    
+    padding:10,
+    textAlign:"center"
   }
   
 });
