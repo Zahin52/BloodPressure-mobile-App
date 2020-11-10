@@ -127,7 +127,7 @@ class dashItems extends Component {
     else if(sys>=120 && sys<=129 && dia<80) {this.setState({checkit:"ELEVATED"}); console.log("ELEVATED");} 
     else if((sys>=130 && sys<=139) || (dia>=80 && dia<=89)) {this.setState({checkit:"High BP (stage 1)"}); console.log("High BP stage1");}
     else if((sys>=140 && sys<=180 ) || (dia>=90 && dia<=120)){this.setState({checkit:"High BP (stage 2)"}); console.log("High BP stage2");} 
-    if((sys>180 || dia>120)) {this.setState({checkit:"Hypertensive crisis.Immediately go to doctor!"}); console.log("Hypertensive crisis,Immediately go to doctor!");}
+    if((sys>180 || dia>120)) {this.setState({checkit:"Hypertensive crisis . Immediately go to doctor!"}); console.log("Hypertensive crisis,Immediately go to doctor!");}
     }, 2000);
   }
   
