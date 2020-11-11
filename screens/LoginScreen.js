@@ -145,9 +145,9 @@ class LoginScreen extends Component {
             isLoading:true
           })
           const result = await Google.logInAsync({
-            
-            androidClientId: '19505452059-294pbr8k70nk2ldh1v8870afeafb6nms.apps.googleusercontent.com',
-            
+            // behavior:'web',
+            androidClientId: '19505452059-qaukho3c979johls2lmhv0ecf691eq49.apps.googleusercontent.com',
+            androidStandaloneAppClientId:"19505452059-qaukho3c979johls2lmhv0ecf691eq49.apps.googleusercontent.com",
             scopes: ['profile', 'email'],
           });
       

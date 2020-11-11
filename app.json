@@ -10,15 +10,26 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "ios": {
+      "bundleIdentifier": "com.zahin.bloodpressure",
+      "buildNumber": "2.0.0"
+    },
+    "android": {
+      "package": "com.zahin.bloodpressure",      
+      "config":{
+        "googleSignIn":{
+          "apiKey":"AIzaSyBCrKuLoKbOjbkO2PvELZX57lwP_44ZRf4",
+          "certificateHash":"B91774C560819CF4B73C60BC472325C2FEE1D68F"
+        }
+      },
+      "versionCode": 2
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
+    ],    
     "web": {
       "favicon": "./assets/favicon.png"
     }
