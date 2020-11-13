@@ -11,6 +11,7 @@ import firebase from "firebase";
 import Modalview from './modal';
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
+import Spinner from "../shared/spinner";
 
 let prevOpenedRow;
 
@@ -22,6 +23,8 @@ class dashItems extends Component {
     this.state = { 
       checkit:"Checking...",
       Modaltoggle:false,
+      dataFlag:true,
+      spinnerFlag:true,
       list:[]
      };
      this.refsArray = []; 
@@ -51,6 +54,7 @@ class dashItems extends Component {
      // console.log("snapshot",snapshot);
      
        if(snapshot.val()==null){
+        this.setState({dataFlag:false}) ;
          console.log("im null");
        }else{
         Object.entries(snapshot.val()).forEach((val) => {
@@ -60,12 +64,13 @@ class dashItems extends Component {
             arr.push(newArr);
             console.log("new arr",newArr);
           });
+          arr=arr.reverse();
+        this.setState({list:arr,dataFlag:true,spinnerFlag:false}) ;
         
        }        
         //this.setState({list:arr}) ;    
         
-        arr=arr.reverse();
-        this.setState({list:arr}) ;
+        
         //console.log("into function",this.state.list);
        });
 }
@@ -123,7 +128,8 @@ class dashItems extends Component {
     
     this.close(index);
     setTimeout(() => {
-    if(sys<120 && dia<80) {this.setState({checkit:"NORMAL"}); console.log("NORMAL");}
+      if(sys<=90 || dia<=60){this.setState({checkit:"Low BP"}); console.log("Low BP");}
+    else if((sys<120 && sys>90) &&( dia>60 && dia<=80)) {this.setState({checkit:"NORMAL"}); console.log("NORMAL");}
     else if(sys>=120 && sys<=129 && dia<80) {this.setState({checkit:"ELEVATED"}); console.log("ELEVATED");} 
     else if((sys>=130 && sys<=139) || (dia>=80 && dia<=89)) {this.setState({checkit:"High BP (stage 1)"}); console.log("High BP stage1");}
     else if((sys>=140 && sys<=180 ) || (dia>=90 && dia<=120)){this.setState({checkit:"High BP (stage 2)"}); console.log("High BP stage2");} 
@@ -209,7 +215,7 @@ Noitem=()=>(
         
         <View  style={{flex:1,width:"100%",}}>
           {console.log("length:",this.state.list.length)}
-              {this.state.list.length>0 ? this.FlatListItems() : this.Noitem()}
+              {this.state.dataFlag? (this.state.spinnerFlag? <Spinner><Text>Loading...</Text></Spinner>:this.FlatListItems() ): this.Noitem()}
         </View>
         <Modalview 
             toggler={this.state.Modaltoggle} 

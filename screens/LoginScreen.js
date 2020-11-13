@@ -4,21 +4,17 @@ import firebase from "firebase";
 import Spinner from "../shared/spinner";
 import Header from "../shared/header";
 import Emaillogin from "./LoginItems";
+import PassResetModal from "../shared/passreset";
 
 import { 
     View,
     Text,
-    StyleSheet,
-    ActivityIndicator,
+    StyleSheet,    
     TouchableWithoutFeedback,
     Keyboard,
-    StatusBar,ImageBackground
-} from "react-native";
-import Button from "../shared/button";
-
-// export let userId="";
-
- 
+    ImageBackground,
+    Alert
+} from "react-native"; 
 
 
 class LoginScreen extends Component {
@@ -26,21 +22,25 @@ class LoginScreen extends Component {
       super(props)
       this.state={
         isLoading:false,
-        
+        resetModal:false        
       }
       this.onSignIn=this.onSignIn.bind(this);
       this.isUserEqual=this.isUserEqual.bind(this);
       this.signInWithGoogleAsync=this.signInWithGoogleAsync.bind(this);
       this.Mainitem=this.Mainitem.bind(this);
+      this.resetPassModal=this.resetPassModal.bind(this);
     }    
     Mainitem = () => 
     (         <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
                 <View style={styles.container}>
-                    <Emaillogin Loginuser={this.Loginuser} Signinuser={this.Signinuser} GoogleLogin={() => this.signInWithGoogleAsync() }/>                    
+                    <Emaillogin resetPassModal={()=> this.resetPassModal()} Loginuser={this.Loginuser} Signinuser={this.Signinuser} GoogleLogin={() => this.signInWithGoogleAsync() }/>                    
                     {/* <Button title="Login with google" onPress={() => this.signInWithGoogleAsync() }/>                */}
                 </View>
               </TouchableWithoutFeedback>
     );
+    resetPassModal=()=>{
+      this.setState({resetModal:true});
+    }
 
     Loginuser(email,password){
       console.log("Email:"+email+" pass:"+password);
@@ -57,9 +57,17 @@ class LoginScreen extends Component {
               var email = error.email;
               // The firebase.auth.AuthCredential type that was used.
               var credential = error.credential;
-             alert(errorMessage);
+              Alert.alert(
+                "Error",
+                errorMessage,
+                [              
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ],
+                { cancelable: false }
+              );
             });
       } catch (error) {
+        alert(error);
           console.log(error.toString());
       }
   }
@@ -70,8 +78,26 @@ class LoginScreen extends Component {
              alert("Please enter at least 6 character");
              return;
          }
-         firebase.auth().createUserWithEmailAndPassword(email,password);
+         firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          Alert.alert(
+            "Error",
+            errorMessage,
+            [              
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ],
+            { cancelable: false }
+          );
+          // ...
+        });
      } catch (error) {
+      alert(error);
          console.log(error.toString());
      }
   }
@@ -130,6 +156,14 @@ class LoginScreen extends Component {
               var email = error.email;
               // The firebase.auth.AuthCredential type that was used.
               var credential = error.credential;
+              Alert.alert(
+                "Error",
+                errorMessage,
+                [              
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ],
+                { cancelable: false }
+              );
               // ...
             });
           } else {
@@ -145,7 +179,7 @@ class LoginScreen extends Component {
             isLoading:true
           })
           const result = await Google.logInAsync({
-            // behavior:'web',
+            behavior:'web',
             androidClientId: '19505452059-qaukho3c979johls2lmhv0ecf691eq49.apps.googleusercontent.com',
             androidStandaloneAppClientId:"19505452059-qaukho3c979johls2lmhv0ecf691eq49.apps.googleusercontent.com",
             scopes: ['profile', 'email'],
@@ -155,9 +189,20 @@ class LoginScreen extends Component {
               this.onSignIn(result);
             return result.accessToken;
           } else {
+            this.setState({
+              isLoading:false
+            })
             return { cancelled: true };
           }
         } catch (e) {
+          Alert.alert(
+            "Error",
+            e,
+            [              
+              { text: "OK", onPress: () => console.log("OK Pressed") }
+            ],
+            { cancelable: false }
+          );
           return { error: true };
         }
       }
@@ -165,8 +210,9 @@ class LoginScreen extends Component {
         return (
             <View style={{flex:1}}>
                 <Header/>
+                <PassResetModal toggler={this.state.resetModal} toggle={()=>this.setState({resetModal:false})} />
                 <ImageBackground source={require('../assets/bloodpressure.png')} style={styles.imgBackground}>
-                    {console.log(this.state.isLoading)}
+                    {/* {console.log(this.state.isLoading)} */}
                     {this.state.isLoading ? <Spinner><Text>Signing in . . . . .</Text></Spinner>:this.Mainitem()}  
                 </ImageBackground>   
                                 

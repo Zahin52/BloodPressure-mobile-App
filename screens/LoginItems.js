@@ -6,7 +6,6 @@ import {
     } from "react-native";
 import {Container,Content,Header,Button,Form,Input,Item,Label,Icon} from "native-base";
 import { AntDesign,Zocial ,Entypo} from '@expo/vector-icons';
-import firebase from "firebase";
 class Emaillogin extends Component {
     constructor(props){
         super(props);
@@ -74,6 +73,7 @@ class Emaillogin extends Component {
                             SignUp
                         </Text>
                     </Button>
+                    <Text onPress={this.props.resetPassModal} style={{color:"#0275d8",textAlign:"center",marginTop:5}}>Forgotten password?</Text>
                     <Text style={{textAlign:"center",fontWeight:"bold",margin:30}}>OR</Text>
                     <Button style={{marginTop:10}}
                     full

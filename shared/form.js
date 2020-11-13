@@ -3,7 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity,    
     TextInput,
     Button,
    
@@ -16,13 +15,13 @@ const validation=yup.object({
         .required("required")
         .matches(/^\d+$/,"Only Number allowed")
         .test("is num","Number must be >30 and <250",(val)=>{
-            return  parseInt(val)>30 && parseInt(val)<250;
+            return  parseInt(val)>30 && parseInt(val)<300;
         }),
     DIA:yup.string()
         .required("Required")
         .matches(/^\d+$/,"Only Number allowed")
         .test("is num","Number must be >30 and < 250",(val)=>{
-            return  parseInt(val)>30 && parseInt(val)<250;
+            return  parseInt(val)>30 && parseInt(val)<300;
         }),
 })
 
@@ -65,7 +64,7 @@ const Formview = ({uploadData,onPress}) => (
                         />
                         <Text style={styles.errorText}>{props.touched.DIA && props.errors.DIA}</Text>
                         <View style={{padding:10}}>
-                        <Button  title="submit" onPress={props.handleSubmit}/>     
+                        <Button  title="Submit" onPress={props.handleSubmit}/>     
                         </View>                       
                     </View>
                 
